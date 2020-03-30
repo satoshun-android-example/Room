@@ -18,5 +18,5 @@ data class Animal(
 ) {
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "id")
-  var gardenPlantingId: Long = 0
+  var id: Long = 0
 }
