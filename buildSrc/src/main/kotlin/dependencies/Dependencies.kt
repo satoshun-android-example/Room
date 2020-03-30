@@ -46,6 +46,7 @@ const val ROOM = "androidx.room:room-ktx:$VROOM"
 const val ROOM_COMMON = "androidx.room:room-common:$VROOM"
 const val ROOM_RUNTIME = "androidx.room:room-runtime:$VROOM"
 const val ROOM_COMPILER = "androidx.room:room-compiler:$VROOM"
+const val ROOM_TESTING = "androidx.room:room-testing:$VROOM"
 
 const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
 const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:2.1.0-alpha03"
@@ -98,3 +99,5 @@ const val MOCKITO_KOTLIN = "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
 const val TEST_RUNNER = "androidx.test:runner:1.1.1"
 const val TEST_RULE = "androidx.test:rules:1.1.0"
 const val ESPRESSO = "androidx.test.espresso:espresso-core:3.1.1"
+const val ANDROID_JUNIT = "androidx.test.ext:junit-ktx:1.1.1"
+

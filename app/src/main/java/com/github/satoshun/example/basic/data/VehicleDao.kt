@@ -7,8 +7,10 @@ import kotlinx.coroutines.flow.Flow
 interface VehicleDao {
   @Query("SELECT * FROM vehicle")
   fun getVehicles(): Flow<List<Vehicle>>
-}
 
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun addVehicle(vehicle: Vehicle)
+}
 
 @Entity(tableName = "vehicle")
 data class Vehicle(

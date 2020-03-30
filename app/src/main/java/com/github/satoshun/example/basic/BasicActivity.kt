@@ -7,6 +7,8 @@ import androidx.room.Room
 import com.github.satoshun.example.R
 import com.github.satoshun.example.basic.data.Animal
 import com.github.satoshun.example.basic.data.AppDatabase
+import com.github.satoshun.example.basic.data.MIGRATION_1_2
+import com.github.satoshun.example.basic.data.Vehicle
 import com.github.satoshun.example.databinding.BasicActBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,6 +24,7 @@ class BasicActivity : AppCompatActivity() {
 
     val database = Room
       .databaseBuilder(this, AppDatabase::class.java, "test")
+      .addMigrations(MIGRATION_1_2)
       .build()
 
     val dao = database.animalDao()
@@ -34,6 +37,17 @@ class BasicActivity : AppCompatActivity() {
       lifecycleScope.launch {
         id += 1
         dao.addAnimal(Animal(name = "hoge $id"))
+      }
+    }
+
+    val vehicleDao = database.vehicleDao()
+    vehicleDao.getVehicles()
+      .onEach { println("$it") }
+      .launchIn(lifecycleScope)
+
+    binding.vehicle.setOnClickListener {
+      lifecycleScope.launch {
+        vehicleDao.addVehicle(Vehicle(name = "hoge $id"))
       }
     }
   }

@@ -66,5 +66,8 @@ dependencies {
   testImplementation JUNIT
 
   androidTestImplementation TEST_RUNNER
+  androidTestImplementation TEST_RULE
   androidTestImplementation ESPRESSO
+  androidTestImplementation ROOM_TESTING
+  androidTestImplementation ANDROID_JUNIT
 }
