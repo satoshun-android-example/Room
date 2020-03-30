@@ -3,8 +3,8 @@ package com.github.satoshun.example
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import com.github.satoshun.example.nestedscrollview.NestedScrollViewActivity
+import com.github.satoshun.example.basic.BasicActivity
+import com.github.satoshun.example.basic.getContentView
 import com.github.satoshun.example.databinding.AppActBinding
 
 class AppActivity : AppCompatActivity() {
@@ -12,11 +12,12 @@ class AppActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = DataBindingUtil.setContentView(this, R.layout.app_act)
+    setContentView(R.layout.app_act)
+    binding = AppActBinding.bind(getContentView())
 
     binding.basic.setOnClickListener {
       startActivity(
-        Intent(this@AppActivity, NestedScrollViewActivity::class.java)
+        Intent(this@AppActivity, BasicActivity::class.java)
       )
     }
   }

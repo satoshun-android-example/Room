@@ -1,33 +1,40 @@
 package com.github.satoshun.example.basic
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import com.github.satoshun.example.R
-import com.github.satoshun.example.databinding.NestedNestScrollViewActBinding
+import com.github.satoshun.example.basic.data.Animal
+import com.github.satoshun.example.basic.data.AppDatabase
+import com.github.satoshun.example.databinding.BasicActBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class BasicActivity : AppCompatActivity() {
-
-  private lateinit var binding: NestedNestScrollViewActBinding
+  private lateinit var binding: BasicActBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = DataBindingUtil.setContentView(this, R.layout.nested_nest_scroll_view_act)
+    setContentView(R.layout.basic_act)
+    binding = BasicActBinding.bind(getContentView())
 
-    binding.hoge.setOnClickListener {
-      binding.top.scrollTo(0, 0)
-    }
-    binding.hoge2.setOnClickListener {
-      binding.top.scrollTo(0, 10000)
-    }
+    val database = Room
+      .databaseBuilder(this, AppDatabase::class.java, "test")
+      .build()
 
-    binding.hoge3.setOnClickListener {
-      scrollToTargetView(binding.hoge2)
-    }
-  }
+    val dao = database.animalDao()
+    dao.getAnimals()
+      .onEach { println("$it") }
+      .launchIn(lifecycleScope)
 
-  private fun scrollToTargetView(targetView: View) {
-    binding.top.scrollTo(0, targetView.top - binding.top.height + targetView.height)
+    var id = 0
+    binding.basic.setOnClickListener {
+      lifecycleScope.launch {
+        id += 1
+        dao.addAnimal(Animal(name = "hoge $id"))
+      }
+    }
   }
 }
