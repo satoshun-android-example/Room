@@ -9,7 +9,7 @@ interface VehicleDao {
   fun getVehicles(): Flow<List<Vehicle>>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun addVehicle(vehicle: Vehicle)
+  suspend fun addVehicle(vehicle: Vehicle)
 }
 
 @Entity(tableName = "vehicle")

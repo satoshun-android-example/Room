@@ -21,11 +21,6 @@ abstract class AppDatabase : RoomDatabase() {
 @VisibleForTesting
 val MIGRATION_1_2: Migration = object : Migration(1, 2) {
   override fun migrate(database: SupportSQLiteDatabase) {
-    // Room uses an own database hash to uniquely identify the database
-    // Since version 1 does not use Room, it doesn't have the database hash associated.
-    // By implementing a Migration class, we're telling Room that it should use the data
-    // from version 1 to version 2.
-    // If no migration is provided, then the tables will be dropped and recreated.
-    // Since we didn't alter the table, there's nothing else to do here.
+    database.execSQL("CREATE TABLE IF NOT EXISTS `vehicle` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)")
   }
 }
