@@ -42,7 +42,7 @@ class BasicActivity : AppCompatActivity() {
 
     val vehicleDao = database.vehicleDao()
     vehicleDao.getVehicles()
-      .onEach { println("$it") }
+      .onEach { println("${it.firstOrNull()?.id} $it") }
       .launchIn(lifecycleScope)
 
     binding.vehicle.setOnClickListener {

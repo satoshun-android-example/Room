@@ -12,7 +12,10 @@ interface VehicleDao {
   suspend fun addVehicle(vehicle: Vehicle)
 }
 
-@Entity(tableName = "vehicle")
+@Entity(
+  tableName = "vehicle",
+  indices = [Index(value = ["name"], unique = true)]
+)
 data class Vehicle(
   val name: String
 ) {
